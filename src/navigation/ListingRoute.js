@@ -7,7 +7,7 @@ import ListingItems from "../screens/ListingItems";
 import AddItemDetailsScreen from "../screens/AddItemDetailsScreen";
 import AddItemValueScreen from "../screens/AddItemValue";
 import SelectPhotosScreen from "../screens/SelectPhoto";
-
+import AddCategoryInItem from "../screens/AddCategoryInItem";
 // import postScreen from "../screens/postScreen";
 const Stack = createStackNavigator();
 const ListingRoute = (props) => {
@@ -35,6 +35,16 @@ const ListingRoute = (props) => {
         }}
       />
 
+      <Stack.Screen
+        name={"AddCategoryInItem"}
+        component={AddCategoryInItem}
+        options={{
+          title: "ক্যাটাগরী যুক্ত করুন",
+          headerStyle: {
+            backgroundColor: "#fec85c",
+          },
+        }}
+      />
       <Stack.Screen
         name={"AddItemValue"}
         component={AddItemValueScreen}

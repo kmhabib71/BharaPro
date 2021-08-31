@@ -17,8 +17,8 @@ const SelectPhotosScreen = () => {
   const navigation = useNavigation();
   const onSuccess = (data: any) => {
     Alert.alert("Done", data.length + "Images selected");
-    console.log(data);
-    navigation.navigate("AddItemDetails");
+    // console.log(data);
+    navigation.navigate("AddItemDetails", { imageData: data });
   };
 
   const widgetErrors = useMemo(

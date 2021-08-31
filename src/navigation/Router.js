@@ -6,6 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeTabNavigator from "./HomeTabNavigator";
 import ShowListDetailsScreen from "../../src/screens/ShowListDetails";
 import ListingRoute from "./ListingRoute";
+import AddCategoryInItem from "../screens/AddCategoryInItem";
 // import postScreen from "../screens/postScreen";
 const Stack = createStackNavigator();
 const Router = (props) => {
@@ -15,6 +16,7 @@ const Router = (props) => {
         <Stack.Screen
           name={"Home"}
           component={HomeTabNavigator}
+          // component={AddCategoryInItem}
           options={{
             headerShown: false,
           }}
