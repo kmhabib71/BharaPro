@@ -106,15 +106,6 @@ const AddItemDetailsScreen = (props) => {
                 />
               </Pressable>
             ))} */}
-            {/* <AddItemPhotoList
-              post={
-                !route.params
-                  ? ""
-                  : route.params.imageData != ""
-                  ? imageData[0].uri
-                  : ""
-              }
-            /> */}
           </View>
         </View>
         <Pressable
