@@ -33,7 +33,7 @@ const HomeScreen = (props) => {
             category: "Office Equipment",
           })
         );
-        // console.log(itemListByCat.data.listListings.items);
+        console.log(itemListByCat.data.listListings.items);
         setNewListItem(itemListByCat.data.listListings.items);
       } catch (e) {
         console.log(e);

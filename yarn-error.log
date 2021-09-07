@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\Km Habib\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js remove react-native-image-zoom-viewer
+  C:\Program Files\nodejs\node.exe C:\Users\Km Habib\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add uuid
 
 PATH: 
   C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\python\python391\Scripts\;C:\python\python391\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\Git\cmd;C:\Program Files (x86)\AMD\ATI.ACE\Core-Static;C:\flutter\bin;C:\Program Files\Java\jdk-16.0.2\bin;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files\OpenJDK\openjdk-8u302-b08\bin;C:\Users\Km Habib\AppData\Local\Android\Sdk\platform-tools;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files (x86)\Brackets\command;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\nodejs\;C:\Users\Km Habib\AppData\Local\Microsoft\WindowsApps;C:\Users\Km Habib\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Km Habib\AppData\Roaming\Composer\vendor\bin;C:\Users\Km Habib\AppData\Local\Programs\Python\Python39;C:\Users\Km Habib\AppData\Local\Programs\Python\Python39\Scripts;C:\Program Files\heroku\bin;C:\Users\Km Habib\AppData\Local\GitHubDesktop\bin;C:\Users\Km Habib\AppData\Local\Android\Sdk\cmdline-tools\latest\bin;C:\Users\Km Habib\AppData\Local\Android\Sdk\platform-tools;C:\Program Files (x86)\Java\jre1.8.0_301\bin;C:\Users\Km Habib\AppData\Roaming\npm
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'C:\Users\Km Habib\Documents\GitHub\BharaPro\node_modules\react-native-image-pan-zoom\built\image-zoom'
+  Error: EPERM: operation not permitted, unlink 'C:\Users\Km Habib\Documents\GitHub\BharaPro\node_modules\react-native-vector-icons\bin'
 
 npm manifest: 
   {
@@ -53,6 +53,7 @@ npm manifest:
       "react-native-gesture-handler": "^1.10.3",
       "react-native-google-places-autocomplete": "^2.4.1",
       "react-native-image-crop-picker": "^0.36.2",
+      "react-native-image-pan-zoom": "^2.1.12",
       "react-native-maps": "^0.28.0",
       "react-native-pager-view": "^5.4.0",
       "react-native-paper": "3.6.0",
@@ -7136,13 +7137,6 @@ Lockfile:
     "integrity" "sha512-BF66XeP6dzuANsPmmFsJshM2Jyh/Mo1t8FsGc1L9Q9/sVP8MJULDabB1hms+eAoqgtyhMr5BuXV3E1hJ5U5H6Q=="
     "resolved" "https://registry.npmjs.org/react-native-image-pan-zoom/-/react-native-image-pan-zoom-2.1.12.tgz"
     "version" "2.1.12"
-  
-  "react-native-image-zoom-viewer@^3.0.1":
-    "integrity" "sha512-la6s5DNSuq4GCRLsi5CZ29FPjgTpdCuGIRdO5T9rUrAtxrlpBPhhSnHrbmPVxsdtOUvxHacTh2Gfa9+RraMZQA=="
-    "resolved" "https://registry.npmjs.org/react-native-image-zoom-viewer/-/react-native-image-zoom-viewer-3.0.1.tgz"
-    "version" "3.0.1"
-    dependencies:
-      "react-native-image-pan-zoom" "^2.1.12"
   
   "react-native-maps@^0.28.0":
     "integrity" "sha512-F+k5ZT9hhl+iXR1H+5ZcoHOEB5lPu9gCIwtA4lI/LoI9nfa9xFvr1vMiLIv44jzeGNzbE3+/R81IpcNDMJ5uDg=="

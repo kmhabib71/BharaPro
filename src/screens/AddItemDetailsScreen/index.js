@@ -16,19 +16,20 @@ import styles from "./style";
 import { useNavigation, useRoute } from "@react-navigation/native";
 // import Icon from 'react-native-vector-icons/FontAwesome';
 // import Octicons from 'react-native-vector-icons/Octicons';
-import { Auth } from "aws-amplify";
+import { API, graphqlOperation, Auth, Storage } from "aws-amplify";
 import { AntDesign } from "@expo/vector-icons";
 import AddItemPhotoList from "../../components/AddItemPhotoList";
 import ImageZoom from "react-native-image-pan-zoom";
+import { v4 as uuidv4 } from "uuid";
+import { createListing } from "../../graphql/mutations";
 const AddItemDetailsScreen = (props) => {
-  const logout = () => {
-    Auth.signOut();
-  };
+  // const logout = () => {
+  //   Auth.signOut();
+  // };
   const navigation = useNavigation();
-
   const route = useRoute();
-  // const post = places.find(place => place.id === route.params.postId);
   const [getItemImage, setGetItemImage] = useState([]);
+  const [imageUriToStore, setImageUriToStore] = useState([]);
   const [getCategory, setGetCategory] = useState({
     catItemName: "ক্যাটাগরি",
     catItemid: 0,
@@ -49,7 +50,77 @@ const AddItemDetailsScreen = (props) => {
       // alert("nothing found, try again");
     }
   });
+  [imageCount, setImageCount] = useState([]);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [rentValue, setRentValue] = useState("");
+  // var imageSrcArray = [];
+  // setImageCount([]);
+  // console.log(getItemImage.imageData.length);
+  const imageToStore = async () => {
+    try {
+      getItemImage &&
+        getItemImage.imageData &&
+        getItemImage.imageData.map(async (component, index) => {
+          // console.log(component.uri);
+          // setImageCount(imageCount + 1);
+          const imageUrl = component.uri;
+          const response = await fetch(imageUrl);
 
+          const blob = await response.blob();
+
+          const urlParts = imageUrl.split(".");
+          const extension = urlParts[urlParts.length - 1];
+
+          const key = `${uuidv4()}.${extension}`;
+
+          await Storage.put(key, blob);
+          // console.log(getItemImage.imageData.length);
+          // console.log(getItemImage.imageData.length);
+          setImageCount([...imageCount, { imageUri: key }]);
+          if (getItemImage.imageData.length == index + 1) {
+            // console.log(JSON.stringify(imageCount));
+            const itemToPost = {
+              title: title,
+              category: getCategory.catItemName,
+              description: description,
+              images: imageCount,
+              value: rentValue,
+            };
+            await API.graphql(
+              graphqlOperation(createListing, { input: itemToPost })
+            );
+            console.log(itemToPost);
+            // console.log("imageCount array: " + imageCount[1].imageUri);
+            // console.log("imageCount array: " + imageSrcArray[0].imageUri);
+          } else {
+            // imageSrcArray.push({ imageId: index, imageUri: component.uri });
+          }
+          //Ekhane graphql storing function run korte hobe, shorto holo jokon loop shesh hobe tokhoni graphql operation chalate hobe jate array varaible thake image name gulo pawa jai.
+          return key;
+        });
+    } catch (e) {
+      console.log(e);
+    }
+    return "";
+  };
+  async function one() {
+    console.log("fn one");
+  }
+  async function two() {
+    console.log("fn two");
+  }
+  async function three() {
+    console.log("fn three");
+  }
+
+  async function callALl() {
+    // await imageToStore();
+    await one();
+    await two();
+    await three();
+  }
+  // console.log(imageToStore());
   const [modalVisible, setModalVisible] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
   var width = Dimensions.get("window").width; //full width
@@ -98,24 +169,6 @@ const AddItemDetailsScreen = (props) => {
                 }}
               />
             </ImageZoom>
-            {/* <ImageViewer imageUrls={imageSrc} /> */}
-            {/* <ScrollView
-              style={styles.textStyle}
-              minimumZoomScale={1}
-              maximumZoomScale={5}
-              horizontal={true}>
-              <Image
-                source={{
-                  uri: "" + imageSrc + "",
-                }}
-                style={{
-                  width: width,
-                  height: height,
-                  flex: 1,
-                  resizeMode: "contain",
-                }}
-              />
-            </ScrollView> */}
           </View>
         </View>
       </Modal>
@@ -124,11 +177,9 @@ const AddItemDetailsScreen = (props) => {
         <Text style={{ color: "gray", marginLeft: 20, marginTop: 20 }}>
           ছবি আপলোড করুন(সর্বোচ্চ ৫টি ছবি)
         </Text>
-        {/* <Text>{getCategoryName[0].uri}</Text> */}
+
         <View>
           <ScrollView horizontal={true} style={styles.container}>
-            {/* {showImage()} */}
-
             {getItemImage &&
               getItemImage.imageData &&
               getItemImage.imageData.map((component, index) => (
@@ -149,34 +200,22 @@ const AddItemDetailsScreen = (props) => {
                   />
                 </Pressable>
               ))}
-
-            {/* {imageData.map((item, index) => (
-              <Pressable
-                key={item[index].id}
-                style={styles.container}
-                android_ripple={{ color: "grey" }}>
-                <Image
-                  source={item[index].uri}
-                  style={{ height: 100, width: 100 }}
-                />
-              </Pressable>
-            ))} */}
           </ScrollView>
         </View>
         <Pressable
           style={styles.uploadImage}
           android_ripple={{ color: "grey" }}
-          onPress={() => navigation.navigate("SelectPhotosScreen")}>
+          onPress={() => {
+            callALl();
+            navigation.navigate("SelectPhotosScreen");
+          }}>
           <AntDesign name="pluscircle" size={24} color="#293241" />
         </Pressable>
         <Pressable
           style={styles.category}
           android_ripple={{ color: "grey" }}
           onPress={() => navigation.navigate("AddCategoryInItem")}>
-          <Text style={{ color: "gray" }}>
-            {/* {getCategory !== undefined ? getCategory.catItemName : "category"} */}
-            {getCategory.catItemName}
-          </Text>
+          <Text style={{ color: "gray" }}>{getCategory.catItemName}</Text>
           <AntDesign
             style={{ color: "gray" }}
             name="right"
@@ -185,37 +224,32 @@ const AddItemDetailsScreen = (props) => {
           />
         </Pressable>
         <Pressable style={styles.title}>
-          <TextInput placeholder="টাইটেল" />
+          <TextInput
+            placeholder="টাইটেল"
+            onChangeText={(text) => setTitle(text)}
+          />
         </Pressable>
         <View style={styles.description}>
-          <TextInput placeholder="বর্ণনা" multiline={true} numberOfLines={3} />
+          <TextInput
+            placeholder="বর্ণনা"
+            multiline={true}
+            numberOfLines={3}
+            onChangeText={(text) => setDescription(text)}
+          />
         </View>
         <View style={styles.description}>
-          <TextInput placeholder="দৈনিক ভাড়া মূল্য" keyboardType="numeric" />
+          <TextInput
+            placeholder="দৈনিক ভাড়া মূল্য"
+            keyboardType="numeric"
+            onChangeText={(text) => setRentValue(text)}
+          />
         </View>
         <Pressable
           style={styles.nextButton}
-          // onPress={() => navigation.navigate("AddItemValue")}
-          onPress={() => alert("Pressed")}
+          onPress={() => imageToStore()}
           android_ripple={{ color: "grey" }}>
           <Text style={styles.nextText}>পরবর্তী</Text>
         </Pressable>
-        {/* <View>
-        <Pressable onPress={LoadLib}>
-          <Text>Choose a photo</Text>
-        </Pressable>
-      </View> */}
-        {/* <Pressable
-        style={{
-          width: "100%",
-          height: 40,
-          backgroundColor: "#c3c3c3",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        onPress={() => navigation.navigate("SelectPhotosScreen")}>
-        <Text>Add Item details</Text>
-      </Pressable> */}
       </View>
     </ScrollView>
   );
