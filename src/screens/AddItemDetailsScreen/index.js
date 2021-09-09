@@ -22,6 +22,7 @@ import AddItemPhotoList from "../../components/AddItemPhotoList";
 import ImageZoom from "react-native-image-pan-zoom";
 import { v4 as uuidv4 } from "uuid";
 import { createListing } from "../../graphql/mutations";
+
 const AddItemDetailsScreen = (props) => {
   // const logout = () => {
   //   Auth.signOut();
@@ -74,17 +75,17 @@ const AddItemDetailsScreen = (props) => {
 
           const key = `${uuidv4()}.${extension}`;
 
-          await Storage.put(key, blob);
           // console.log(getItemImage.imageData.length);
           // console.log(getItemImage.imageData.length);
           setImageCount([...imageCount, { imageUri: key }]);
+          await Storage.put(key, blob);
           if (getItemImage.imageData.length == index + 1) {
             // console.log(JSON.stringify(imageCount));
             const itemToPost = {
               title: title,
               category: getCategory.catItemName,
               description: description,
-              images: imageCount,
+              images: JSON.stringify(imageCount),
               value: rentValue,
             };
             await API.graphql(
@@ -177,6 +178,15 @@ const AddItemDetailsScreen = (props) => {
         <Text style={{ color: "gray", marginLeft: 20, marginTop: 20 }}>
           ছবি আপলোড করুন(সর্বোচ্চ ৫টি ছবি)
         </Text>
+        <Pressable
+          style={styles.uploadImage}
+          android_ripple={{ color: "grey" }}
+          onPress={() => {
+            callALl();
+            navigation.navigate("SelectPhotosScreen");
+          }}>
+          <AntDesign name="pluscircle" size={24} color="#293241" />
+        </Pressable>
 
         <View>
           <ScrollView horizontal={true} style={styles.container}>
@@ -202,15 +212,6 @@ const AddItemDetailsScreen = (props) => {
               ))}
           </ScrollView>
         </View>
-        <Pressable
-          style={styles.uploadImage}
-          android_ripple={{ color: "grey" }}
-          onPress={() => {
-            callALl();
-            navigation.navigate("SelectPhotosScreen");
-          }}>
-          <AntDesign name="pluscircle" size={24} color="#293241" />
-        </Pressable>
         <Pressable
           style={styles.category}
           android_ripple={{ color: "grey" }}

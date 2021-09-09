@@ -8,4 +8,6 @@
       "Outputs.UserPoolId"
     ]
   }
+  // CreateAPIKey:0; for deleteing api key, everytime run the comman 'amplify push'
+  // CreateAPIKey:1; for creating new api key
 }

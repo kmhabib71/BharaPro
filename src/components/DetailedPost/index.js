@@ -1,7 +1,8 @@
-import React from 'react';
-import {View, Text, Image, ScrollView} from 'react-native';
-import styles from './style';
-const Post = props => {
+import React from "react";
+import { View, Text, Image, ScrollView } from "react-native";
+import styles from "./style";
+import { S3Image } from "aws-amplify-react-native";
+const Post = (props) => {
   const post = props.post;
   return (
     <ScrollView>
@@ -12,6 +13,11 @@ const Post = props => {
           source={{
             uri: post.image,
           }}
+        />
+        <Text>post.images</Text>
+        <S3Image
+          style={{ height: 200, width: 200 }}
+          imgKey="fb3660d3-780d-45a3-bfed-4e4dbcf1916f.jpg"
         />
         {/* Bed & bedroom */}
         <Text style={styles.bedrooms}>

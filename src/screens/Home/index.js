@@ -14,18 +14,37 @@ import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
 // import Icon from 'react-native-vector-icons/FontAwesome';
 // import Octicons from 'react-native-vector-icons/Octicons';
-import { API, graphqlOperation, Auth } from "aws-amplify";
+import { API, graphqlOperation, Auth, Storage } from "aws-amplify";
 import { getListing } from "../../../src/graphql/queries";
 import { listListings } from "../../../src/graphql/queries";
 import PostItems from "../../components/PostItems";
+import config from "../../aws-exports";
+
+const {
+  aws_user_files_s3_bucket_region: region,
+  aws_user_files_s3_bucket: bucket,
+} = config;
+
 const HomeScreen = (props) => {
   const navigation = useNavigation();
 
   const [modalVisible, setModalVisible] = useState(false);
   const [newItem, setNewItem] = useState([]);
   const [newListItem, setNewListItem] = useState([]);
-
+  const [showImage, setShowImage] = useState("");
+  async function getImgg() {
+    const imageKey = await Storage.get(
+      "fb3660d3-780d-45a3-bfed-4e4dbcf1916f.jpg",
+      {
+        level: "private",
+      }
+    );
+    setShowImage(imageKey);
+    // console.log(imageKey);
+  }
+  // console.log(getImgg());
   useEffect(() => {
+    getImgg();
     const fetchUsers = async () => {
       try {
         const itemListByCat = await API.graphql(
@@ -59,7 +78,14 @@ const HomeScreen = (props) => {
   }, []);
   return (
     <View style={{ backgroundColor: "white", height: "100%", color: "black" }}>
-      <Modal
+      {/* <Text>{showImage}</Text> */}
+
+      {/* <Image
+        source={{
+          uri: "https://bharaprobracket173833-dev.s3.ap-northeast-2.amazonaws.com/public/10f43888-2506-4777-a1a6-99f6701f1189.jpg",
+        }}
+        style={{ height: 200, width: 200 }}></Image> */}
+      {/* <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -77,7 +103,7 @@ const HomeScreen = (props) => {
             </Pressable>
           </View>
         </View>
-      </Modal>
+      </Modal> */}
       <View
         style={{
           backgroundColor: "#fec85c",
